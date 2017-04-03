@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  File      : session.xml
+  Author    : cmartin
+  Copyright : Dovetail (2016)
+  Created   : 16-Feb-2016
+
+  History
+    16-Feb-2016 cmartin The initial version.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+<bean id="authenticationService"
+        class="com.dovetail.common.authentication.service.impl.LocalAuthenticationService">
+    <property name="handlers">
+      <list>
+        <bean class="com.dovetail.common.authentication.service.impl.ConfigurationAuthenticationHandler">
+          <property name="validCredentials" value="testUser"/>
+        </bean>
+      </list>
+    </property>
+</bean>
+
+  <!-- Session service -->
+  <bean id="sessionService"
+        class="com.dovetail.common.session.service.impl.LocalSessionService">
+    <property name="authenticationService" ref="authenticationService" />
+  </bean>
+</beans>
